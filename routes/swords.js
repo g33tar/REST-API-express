@@ -22,17 +22,8 @@ router.post('/', function(req, res){
   })
 })
 
-router.post('/', function(req, res) {
-  Swords.insert(req.body, function(err, sword) {
-    if (err) {
-      res.send(err);
-    }
-    res.status(201).json(sword);
-  });
-})
-
 router.get('/:id', function(req, res){
-  Sword.findOne({_id: req.params.id}, function(err, sword){
+  Swords.findOne({_id: req.params.id}, function(err, sword){
     if(err){
       res.send(err)
     }
@@ -45,11 +36,11 @@ router.put('/:id', function(req, res){
     if(err){
       res.send(err)
     }
-    res.status(200).json(sword)
+    res.status(200).json(req.body)
   })
 })
 
-router.delete('/:id', function(req, res){
+router.post('/:id', function(req, res){
   Swords.remove({_id: req.params.id}, function(err, sword){
     if(err){
       res.send(err)

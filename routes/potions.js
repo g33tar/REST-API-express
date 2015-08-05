@@ -1,15 +1,15 @@
 var express = require('express');
-var router = express.Router();
-db = require('monk')(process.env.MONGOLAB_URI)
-var Potions = db.get('potions')
+    router = express.Router();
+    db = require('monk')('localhost/potions')
+    Potions = db.get('potions')
 
 router.get('/', function(req, res) {
 //res.status(200).json({message: "rawr, you did it!"})
-  Potions.find({}, function(err,potions){
+  Potions.find({}, function(err, potions){
     if (err) {
      res.send(err);
    }
-   res.status(200).json(swords);
+   res.status(200).json(potions);
  })
 });
 
@@ -23,7 +23,7 @@ router.post('/', function(req, res){
 })
 
 router.get('/:id', function(req, res){
-  Potion.findOne({_id: req.params.id}, function(err, potion){
+  Potions.findOne({_id: req.params.id}, function(err, potion){
     if(err){
       res.send(err)
     }
@@ -36,11 +36,11 @@ router.put('/:id', function(req, res){
     if (err) {
       res.send(err);
     }
-    res.status(201).json(potion);
+    res.status(200).json(req.body);
   })
 })
 
-router.delete('/:id', function(req, res){
+router.post('/:id', function(req, res){
   Potions.remove({_id: req.params.id}, function(err, potion){
     if(err){
       res.send(err)
